@@ -36,6 +36,8 @@ void quickSort(int array[], int left, int right) {
 }
 
 int main(int argc, char *argv[]) {
+
+	printf("This is quicksort\n");
 	int i;
 	int myArray[] = {3,4,9,6,2,5,7};
 	for (i = 0; i<(sizeof(myArray)/sizeof(int));i++) {

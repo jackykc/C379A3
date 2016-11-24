@@ -1,16 +1,26 @@
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall 
+LINKS = -lm
 
 all: simulator quicksort heapsort
 
-simulator:  
-	$(CC) $(CFLAGS) simulator.c -o simulator
+simulator: simulator.o
+	$(CC) $(CFLAGS) simulator.o -o simulator
 
-quicksort:
-	$(CC) $(CFLAGS) quicksort.c -o quicksort	
+quicksort: quicksort.o
+	$(CC) $(CFLAGS) quicksort.o -o quicksort $(LINKS)
 
-heapsort:
-	$(CC) $(CFLAGS) heapsort.c -o heapsort
+heapsort: heapsort.o
+	$(CC) $(CFLAGS) heapsort.o -o heapsort
+
+simulator.o:  
+	$(CC) -c $(CFLAGS) simulator.c
+
+quicksort.o:
+	$(CC) -c $(CFLAGS) quicksort.c $(LINKS)	
+
+heapsort.o:
+	$(CC) -c  $(CFLAGS) heapsort.c 
 
 cleanSort:
 	rm *sort
@@ -19,5 +29,6 @@ cleanSim:
 	rm simulator
 
 clean:
+	rm *.o
 	rm *sort
 	rm simulator
