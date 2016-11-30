@@ -1,6 +1,17 @@
 
 #include "simulator.h"
 
+
+// gets the last n bits from b
+#define LAST(b,n) ( (b) & ((1 << (n)) -1) )
+#define FIRST(b,n) LAST( ((b) >> (32-n)), n)
+// gets the first n bits from b
+// first right shifts so only first n bits are at the most
+// right hand side
+// the calls last
+
+
+
 // each node of the linked list represents the page
 // every hash value has a linked list
 // each node has key, address, and next pointer
@@ -103,7 +114,17 @@ void print_list(llist* head) {
 
 }
 
-
+int get_exponent(int number) {
+	if(number == 64) {
+		return 6;
+	} else if (number == 128) {
+		return 7;
+	} else if (number == 256) {
+		return 8;
+	} else if (number == 512) {
+		return 9;
+	}
+}
 
 void process () {
 
@@ -160,9 +181,12 @@ int main(int argc, char *argv[]) {
 	llist* item = ht_search(table, size, 6);
 	
 
-	printf("Item with key %d and data %f\n", item->key, item->data);
-	//llist* item0 = ht_search(table, size, 8); // remember that it is null !!!!!!!!
+	//printf("Item with key %d and data %f\n", item->key, item->data);
+	
 
+	// this is a 32bit interger right?
+	int a = 0x82bc1dc7;
+	printf("%x --- %x\n", FIRST(a, 4), LAST(a,3*4));
 
 
 	return 0;

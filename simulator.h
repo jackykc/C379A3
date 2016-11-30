@@ -18,6 +18,10 @@ int get (unsigned int address);
 
 void done();
 
+// get the exponent from 
+// 2^^exponent = number
+int get_exponent(int number);
+
 struct linked_list {
 	int key; double data; struct linked_list *next, *previous;
 };
@@ -31,20 +35,14 @@ llist* ll_search(llist* head, int key);
 
 llist* ll_delete(llist* head, llist* item);
 
-void ht_insert(llist** table, int size, llist* item) {
-	int key = item->key; // key of the item we want to look for
-	table[key % size] = ll_insert(table[key%size], item);
-}
+void ht_insert(llist** table, int size, llist* item);
 
-void ht_delete(llist** table, int size, llist* item) {
-	int key = item->key;
-	table[key % size] = ll_delete(table[key%size], item);	
-}
+void ht_delete(llist** table, int size, llist* item);
 
-llist* ht_search(llist** table, int size, int key){
-	return ll_search(table[key%size],key);
-}
+llist* ht_search(llist** table, int size, int key);
 
 void print_list(llist* head);
+
+
 
 #endif
