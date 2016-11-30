@@ -96,8 +96,8 @@ int main(int argc, char *argv[]) {
 
 	int i;
 	//int myArray[] = {3,4,9,6,2,5,7,1, 5};
-	//int myArray[] = {8,7,6,5,4,3,2};
-	int myArray[] = {1,2,3,4,5,6,7};
+	int myArray[] = {8,7,6,5,4,3,2};
+	//int myArray[] = {1,2,3,4,5,6,7};
 
 	int arraySize = sizeof(myArray)/sizeof(int); 
 	for (i = 0; i< arraySize;i++) {
