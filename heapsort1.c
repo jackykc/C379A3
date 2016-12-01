@@ -124,8 +124,8 @@ int main(int argc, char *argv[]) {
 	heapSort(10);
 
 	printf("Here %d %d %d %d %d %d %d %d %d %d\n",
-	 get(0), get(1), get(2), get(3), get(4),
-	  get(5), get(6), get(7), get(8), get(9));
+	 get(0), get(0), get(0), get(0), get(0),
+	  get(0), get(0), get(0), get(0), get(0));
 
 
 

@@ -1,7 +1,6 @@
 
 #include "simulator.h"
 
-
 // gets the last n bits from b
 #define LAST(b,n) ( (b) & ((1 << (n)) -1) )
 #define FIRST(b,n) LAST( ((b) >> (32-n)), n)
@@ -135,59 +134,22 @@ void init (int psize, int winsize) {
 }
 
 void put (unsigned int address, int value) {
-
+	llist* node = ll_new(address, value);
+	ht_insert(table, SIZE, node);
 }
 
 // where address is address of our linked list
 int get (unsigned int address) {
-
+	llist* node = ht_search(table, SIZE, address);
+	if (node != NULL) {
+		return node->data;
+	}
 }
 
 void done() {
 
 }
 
-int main(int argc, char *argv[]) {
 
+//table = 
 
-	llist* head = NULL;
-	llist* new = ll_new(5, 10.0);
-	llist* new0 = ll_new(6, 11.0);
-	llist* new1 = ll_new(7, 12.0);
-	// inserts new into head
-	/*
-	head = ll_insert(head, new);
-	head = ll_insert(head, new0);
-	head = ll_insert(head, new1);
-	llist* item = ll_search(head, 5);
-
-	printf("I am looking for a node with key %d, it has value %f\n", 5, item->data);
-	print_list(head);
-
-	ll_delete(head, new0);
-	printf("___________________________\n");
-	print_list(head);
-	*/
-
-	/*---------------------------------------------------------------------------------*/
-	llist** table;
-	int size = 100; // temp
-	table = malloc(size*sizeof(llist*));
-	ht_insert(table, size, new0);
-	ht_insert(table, size, new1);
-	ht_insert(table, size, new);
-	
-
-	llist* item = ht_search(table, size, 6);
-	
-
-	//printf("Item with key %d and data %f\n", item->key, item->data);
-	
-
-	// this is a 32bit interger right?
-	int a = 0x82bc1dc7;
-	printf("%x --- %x\n", FIRST(a, 4), LAST(a,3*4));
-
-
-	return 0;
-}
