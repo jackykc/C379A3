@@ -134,15 +134,25 @@ void init (int psize, int winsize) {
 }
 
 void put (unsigned int address, int value) {
+	
+	++reference_count;
+
 	llist* node = ll_new(address, value);
 	ht_insert(table, SIZE, node);
 }
 
 // where address is address of our linked list
 int get (unsigned int address) {
+
+	++reference_count;
+
 	llist* node = ht_search(table, SIZE, address);
 	if (node != NULL) {
+
+
 		return node->data;
+	} else { // cannot find it
+		return NULL;
 	}
 }
 

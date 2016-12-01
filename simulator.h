@@ -47,5 +47,8 @@ void print_list(llist* head);
 
 
 llist** table;
+int reference_count;
+llist* memory_references;
+
 
 #endif
