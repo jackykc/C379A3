@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define SIZE 10000
+
 typedef struct linked_list llist;
 
 void process ();
@@ -44,5 +46,6 @@ llist* ht_search(llist** table, int size, int key);
 void print_list(llist* head);
 
 
+llist** table;
 
 #endif
