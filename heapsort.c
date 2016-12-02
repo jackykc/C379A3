@@ -100,20 +100,19 @@ int main(int argc, char *argv[]) {
 		char* process = argv[3];
 	}
 
-	table = malloc(SIZE*sizeof(llist*));
-	reference_count = 0;
-	memory_references = NULL;
-
-
-	llist* head = NULL;
-	llist* new = ll_new(5, 10.0);
-	// inserts new into head	
-
-	//printf("Item with key %d and data %f\n", item->key, item->data);
 	
 	
 	/*---------------------------------------------------------------------------------*/
+	
+	/*
 	int j = 0;
+
+	for(j = 0; j < SIZE; ++j) {
+		put(j, lrand48());			
+	}
+
+	*/
+	init(page_size, window_size);
 
 	put(0, 9);
 	put(1, 8);
@@ -126,8 +125,9 @@ int main(int argc, char *argv[]) {
 	put(8, 1);
 	put(9, 1);
 
+	printf("True\n");
 	heapSort(10);
-
+		
 	printf("Here %d %d %d %d %d %d %d %d %d %d\n",
 	 get(0), get(1), get(2), get(3), get(4),
 	  get(5), get(6), get(7), get(8), get(9));
@@ -136,15 +136,9 @@ int main(int argc, char *argv[]) {
 
 	printf("Count : %d\n", reference_count);
 	
-	/*
 
-	for(j = 0; j < SIZE; ++j) {
-		put(j, lrand48());			
-	}
 
-	*/
-
-	
+	done();	
 
 	return 0;
 }

@@ -109,6 +109,7 @@ void print_list(llist* head) {
 	while (current != NULL) {
 		printf("This is node %d, with key %d and value %f\n", count, current->key, current->data);
 		current = current->next;
+		++count;
 	}
 
 }
@@ -130,7 +131,10 @@ void process () {
 }
 
 void init (int psize, int winsize) {
-
+	// maybe the table should be a bit bigger?
+	table = malloc(SIZE*sizeof(llist*));
+	reference_count = 0;
+	memory_references = NULL;
 }
 
 void put (unsigned int address, int value) {
@@ -138,7 +142,13 @@ void put (unsigned int address, int value) {
 	++reference_count;
 
 	llist* node = ll_new(address, value);
+	
 	ht_insert(table, SIZE, node);
+
+	// for our output
+	llist* mem_node = ll_new(node->key, node->data);
+	memory_references = ll_insert(memory_references, mem_node);
+
 }
 
 // where address is address of our linked list
@@ -146,10 +156,17 @@ int get (unsigned int address) {
 
 	++reference_count;
 
+	// SIZE + 1 ??? =
 	llist* node = ht_search(table, SIZE, address);
+
+	// for our output
+	llist* mem_node = ll_new(node->key, node->data);
+	memory_references = ll_insert(memory_references, mem_node);
+
+	// do we still call it a memory reference if we cannot find it?
 	if (node != NULL) {
 
-
+		//memory_references = ll_insert(memory_references, node);
 		return node->data;
 	} else { // cannot find it
 		return NULL;
@@ -157,6 +174,8 @@ int get (unsigned int address) {
 }
 
 void done() {
+
+	print_list(memory_references);
 
 }
 
