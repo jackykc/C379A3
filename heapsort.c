@@ -10,10 +10,12 @@ void heapify(int count);
 void siftDown(int start, int end);
 
 void swapValues(int indexA, int indexB) {
-	int swapTemp = get(indexA);
-	//get(indexA) = get(indexB);
+	
+	// temporary variable
+	put(SIZE, get(indexA));
+
 	put(indexA, get(indexB));
-	put(indexB, swapTemp);
+	put(indexB, get(SIZE));
 }
 
 void heapSort(int count) {
@@ -41,7 +43,7 @@ void heapify(int count) {
 
 	while (start >= 0) {
 		siftDown(start, count -1);
-		//printf("Start %d", start);
+	
 		--start;
 	}
 
@@ -98,17 +100,19 @@ int main(int argc, char *argv[]) {
 		char* process = argv[3];
 	}
 
-	table = malloc(SIZE*sizeof(llist*));
-
-	llist* head = NULL;
-	llist* new = ll_new(5, 10.0);
-	// inserts new into head	
-
-	//printf("Item with key %d and data %f\n", item->key, item->data);
 	
 	
 	/*---------------------------------------------------------------------------------*/
+	
+	/*
 	int j = 0;
+
+	for(j = 0; j < SIZE; ++j) {
+		put(j, lrand48());			
+	}
+
+	*/
+	init(page_size, window_size);
 
 	put(0, 9);
 	put(1, 8);
@@ -121,84 +125,20 @@ int main(int argc, char *argv[]) {
 	put(8, 1);
 	put(9, 1);
 
+	printf("True\n");
 	heapSort(10);
-
+		
 	printf("Here %d %d %d %d %d %d %d %d %d %d\n",
 	 get(0), get(1), get(2), get(3), get(4),
 	  get(5), get(6), get(7), get(8), get(9));
 
 
 
-
-	/*
-	for (j = 0; j < 10; ++j) {
-
-	}
-	*/
-	// int i = 0;
-	// int myArray[] = {8,7,6,5,4,3,2};
-	// //int myArray[] = {1,2,3,4,5,6,7};
-
-	// int arraySize = sizeof(myArray)/sizeof(int); 
-	// for (i = 0; i< arraySize;i++) {
-	// 	printf("%i ", myArray[i]);
-	// }
-	// printf("\n");
-	// heapSort(myArray, arraySize);
-
-	// // while (pivot != sizeof(myArray)/sizeof(int)) {}
-	// for (i = 0; i<(sizeof(myArray)/sizeof(int));i++) {
-	// 	printf("%i ", myArray[i]);
-	// }
-	// printf("\n");
+	printf("Count : %d\n", reference_count);
+	
 
 
-
-	/*
-
-	for(j = 0; j < SIZE; ++j) {
-		put(j, lrand48());			
-	}
-
-	*/
-
-	put(10, 100);
-
-	printf("Here %d\n", get(10));
-
-
-	put(10, 20);
-	printf("Here %d\n", get(10));
-
+	done();	
 
 	return 0;
 }
-
-/*
-int main(int argc, char *argv[]) {
-
-	printf("This is heapsort\n");
-
-	int i;
-	//int myArray[] = {3,4,9,6,2,5,7,1, 5};
-	int myArray[] = {8,7,6,5,4,3,2};
-	//int myArray[] = {1,2,3,4,5,6,7};
-
-	int arraySize = sizeof(myArray)/sizeof(int); 
-	for (i = 0; i< arraySize;i++) {
-		printf("%i ", myArray[i]);
-	}
-	printf("\n");
-	heapSort(myArray, arraySize);
-
-	// while (pivot != sizeof(myArray)/sizeof(int)) {}
-	for (i = 0; i<(sizeof(myArray)/sizeof(int));i++) {
-		printf("%i ", myArray[i]);
-	}
-	printf("\n");
-
-	return 0;
-
-}
-
-*/
