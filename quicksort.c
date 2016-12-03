@@ -7,8 +7,8 @@
 
 void quicksort(int lenArr) {
 	// declare pivot, begin array, end array, i indecies, and left and right indecies.
-	int piv, begin[1000], end[1000], i, left, right;
-	
+	int begin[1000], end[1000], left, right;
+	int i = 0;
 	// start begin index at 0
 	begin[0] = 0;
 	// start end index at array length
@@ -69,7 +69,7 @@ void process () {
 		put(i, lrand48()/10000000);
 		printf("%i ", get(i));
 	}
-	
+
 	printf("\n");
 
 	quicksort(SIZE);

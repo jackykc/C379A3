@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SIZE 5
+#define SIZE 100
 
 typedef struct linked_list llist;
 
