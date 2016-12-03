@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 10000
+#define SIZE 3500000
 
 typedef struct linked_list llist;
 

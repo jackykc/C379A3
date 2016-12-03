@@ -91,6 +91,7 @@ void process () {
 	// initialize simulator
 	init(page_size, window_size);
 
+/*
 	put(0, 9);
 	put(1, 8);
 	put(2, 6);
@@ -101,13 +102,20 @@ void process () {
 	put(7, 3);
 	put(8, 1);
 	put(9, 1);
-	
+*/	
 	// sort
-	heapSort(10);
-		
+	int i = 0;
+	for(i = 0; i < 300000; ++i) {
+		put(i, lrand48());
+	}
+	printf("True\n");
+	heapSort(300000);
+/*		
 	printf("Here %d %d %d %d %d %d %d %d %d %d\n",
 	 get(0), get(1), get(2), get(3), get(4),
 	  get(5), get(6), get(7), get(8), get(9));
+*/
+
 
 	printf("Count : %d\n", reference_count);
 	

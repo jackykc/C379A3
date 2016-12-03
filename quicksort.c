@@ -47,10 +47,13 @@ void quicksort(int lenArr) {
 	}
 }
 
-int main(int argc, char *argv[]) {
+void process () {
 
+
+	/////////////////////////////
 	init(page_size, window_size);
-
+	/////////////////////////////
+	
 	int i;
 
 	printf("This is quicksort\n");
@@ -74,10 +77,28 @@ int main(int argc, char *argv[]) {
 	quicksort(10000);
 
 	printf("\n");
+	
+	/////////////////////////////
 	done();
-
+	/////////////////////////////
 	for (i = 0; i<10000; i++) {
 		printf("%i ", get(i));
 	}
+
+}
+
+int main(int argc, char *argv[]) {
+
+	//int page_size, window_size;
+	if(argc > 2) {
+		page_size = atoi(argv[1]);
+		window_size = atoi(argv[2]);
+	} else {
+		page_size = 64;
+		window_size = 128;	
+	}
+
+	process();
+
 	return 0;
 }
