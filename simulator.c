@@ -114,22 +114,6 @@ void print_list(llist* head) {
 
 }
 
-int get_exponent(int number) {
-	if(number == 64) {
-		return 6;
-	} else if (number == 128) {
-		return 7;
-	} else if (number == 256) {
-		return 8;
-	} else if (number == 512) {
-		return 9;
-	}
-}
-
-void process () {
-
-}
-
 void init (int psize, int winsize) {
 	// maybe the table should be a bit bigger?
 	table = malloc(SIZE*sizeof(llist*));
@@ -164,13 +148,23 @@ int get (unsigned int address) {
 	memory_references = ll_insert(memory_references, mem_node);
 
 	// do we still call it a memory reference if we cannot find it?
-	if (node != NULL) {
+	
+	//DO WE NEED TO DO THE CHECKS?
+	//DO WE NEED TO DO THE CHECKS?
+	//DO WE NEED TO DO THE CHECKS?
+	//if (node != NULL) {
 
 		//memory_references = ll_insert(memory_references, node);
-		return node->data;
-	} else { // cannot find it
+		//return node->data;
+	//}
+	
+
+	/* else { // cannot find it
 		return NULL;
 	}
+	*/
+	return node->data;
+
 }
 
 void done() {

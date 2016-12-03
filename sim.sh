@@ -32,11 +32,11 @@ fi
 
 # command line arguments are valid if we get here
 
-# the simulator
-make simulator
 # the process
+make clean
 make $process
 
+./$process
 # runs the simulator which takes in the process name as the argument
 # is this what we want?
 
