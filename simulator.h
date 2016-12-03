@@ -5,8 +5,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define SIZE 3500000
+#define SIZE 5
 
 typedef struct linked_list llist;
 
@@ -48,6 +49,7 @@ llist** table;
 int reference_count;
 llist* memory_references;
 int page_size, window_size;
+int key_count;
 
 
 #endif

@@ -68,22 +68,23 @@ void process () {
 	// put(8, 1);
 	// put(9, 1);
 	
-	for (i = 0; i<10000; i++) {
+	for (i = 0; i<SIZE; i++) {
 		put(i, lrand48()/10000000);
 		printf("%i ", get(i));
 	}
 	printf("\n");
 
-	quicksort(10000);
+	quicksort(SIZE);
 
 	printf("\n");
 	
+	for (i = 0; i<SIZE; i++) {
+	//	printf("%i ", get(i));
+	}
 	/////////////////////////////
 	done();
 	/////////////////////////////
-	for (i = 0; i<10000; i++) {
-		printf("%i ", get(i));
-	}
+	
 
 }
 

@@ -117,8 +117,12 @@ void print_list(llist* head) {
 void init (int psize, int winsize) {
 	// maybe the table should be a bit bigger?
 	table = malloc(SIZE*sizeof(llist*));
+	// set table to all zeros
+	memset(table, 0, SIZE*sizeof(llist*));
+
 	reference_count = 0;
 	memory_references = NULL;
+	key_count = 0;
 }
 
 void put (unsigned int address, int value) {
@@ -169,10 +173,22 @@ int get (unsigned int address) {
 
 void done() {
 
+	printf("Count : %d\n", reference_count);
 	print_list(memory_references);
+
+	ll_free(memory_references);
+	int i = 0;
+
+
+	for(i = 0; i < SIZE; ++i) {
+		if(table[i]) {
+			ll_free(table[i]);
+		}
+	}
+
+	free(table);
 
 }
 
 
-//table = 
 

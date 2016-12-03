@@ -86,6 +86,7 @@ void siftDown(int start, int end) {
 
 }
 
+
 void process () {
 
 	// initialize simulator
@@ -105,11 +106,13 @@ void process () {
 */	
 	// sort
 	int i = 0;
-	for(i = 0; i < 300000; ++i) {
+	for(i = 0; i < 5; ++i) {
 		put(i, lrand48());
+		++key_count;
 	}
-	printf("True\n");
-	heapSort(300000);
+
+
+	heapSort(5);
 /*		
 	printf("Here %d %d %d %d %d %d %d %d %d %d\n",
 	 get(0), get(1), get(2), get(3), get(4),
@@ -117,7 +120,7 @@ void process () {
 */
 
 
-	printf("Count : %d\n", reference_count);
+	
 	
 	done();
 
