@@ -86,32 +86,9 @@ void siftDown(int start, int end) {
 
 }
 
-int main(int argc, char *argv[]) {
+void process () {
 
-	int page_size, window_size;
-	if(argc > 2) {
-		page_size = atoi(argv[1]);
-		window_size = atoi(argv[2]);
-	} else {
-		page_size = 64;
-		window_size = 128;	
-	}
-	if(argc == 4) {
-		char* process = argv[3];
-	}
-
-	
-	
-	/*---------------------------------------------------------------------------------*/
-	
-	/*
-	int j = 0;
-
-	for(j = 0; j < SIZE; ++j) {
-		put(j, lrand48());			
-	}
-
-	*/
+	// initialize simulator
 	init(page_size, window_size);
 
 	put(0, 9);
@@ -124,21 +101,51 @@ int main(int argc, char *argv[]) {
 	put(7, 3);
 	put(8, 1);
 	put(9, 1);
-
-	printf("True\n");
+	
+	// sort
 	heapSort(10);
 		
 	printf("Here %d %d %d %d %d %d %d %d %d %d\n",
 	 get(0), get(1), get(2), get(3), get(4),
 	  get(5), get(6), get(7), get(8), get(9));
 
-
-
 	printf("Count : %d\n", reference_count);
+	
+	done();
+
+}
+
+int main(int argc, char *argv[]) {
+
+
+	//int page_size, window_size;
+	if(argc > 2) {
+		page_size = atoi(argv[1]);
+		window_size = atoi(argv[2]);
+	} else {
+		page_size = 64;
+		window_size = 128;	
+	}
+	
+	process();
+	/*---------------------------------------------------------------------------------*/
+	
+	/*
+	int j = 0;
+
+	for(j = 0; j < SIZE; ++j) {
+		put(j, lrand48());			
+	}
+
+	*/
+
+	
 	
 
 
-	done();	
+	
+
+	
 
 	return 0;
 }

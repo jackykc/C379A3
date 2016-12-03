@@ -10,8 +10,6 @@
 
 typedef struct linked_list llist;
 
-void process ();
-
 void init (int psize, int winsize);
 
 void put (unsigned int address, int value);
@@ -49,6 +47,7 @@ void print_list(llist* head);
 llist** table;
 int reference_count;
 llist* memory_references;
+int page_size, window_size;
 
 
 #endif
