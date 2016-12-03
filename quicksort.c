@@ -2,36 +2,42 @@
 #include <string.h>
 #include <math.h>
 // Quicksort function.
+// followed the code here: http://alienryderflex.com/quicksort/
 
-int midPoint(int left, int right) {
-	return (left+right)/2;
-}
+void quicksort(int arr[], int lenArr) {
 
-void quickSort(int array[], int left, int right) {
-	int tempLeft = left;
-	int tempRight = right;
-	int temp;
-	int pivot = round(midPoint(left, right));
-	while (tempLeft <= tempRight) {
-		while (array[tempLeft] < array[pivot]) {
-			tempLeft++;
+	int piv, begin[100], end[100], i, j, left, right;
+	begin[0] = 0;
+	
+	end[0] = lenArr;
+
+	while (i >= 0) {
+		printf("%i\n", i);
+		left = begin[i];
+		right = end[i]-1;
+		if (left < right) {
+			piv = arr[left];
+			while (left < right) {
+				while (arr[right]>=piv && left < right) {
+					right--;
+				}
+				if (left < right) {
+					arr[left++] = arr[right];
+				}
+				while (arr[left] <= piv && left < right) {
+					left++;
+				}
+				if (left < right) {
+					arr[right--] = arr[left];
+				}
+			}
+			arr[left] = piv;
+			begin[i+1] = left + 1;
+			end[i+1] = end[i];
+			end[i++] = left;
+		} else {
+			i--;
 		}
-		while (array[tempRight] > array[pivot]) {
-			tempRight--;
-		}
-		if (tempLeft <= tempRight) {
-			temp = array[tempLeft];
-			array[tempLeft] = array[tempRight];
-			array[tempRight] = temp;
-			tempLeft++;
-			tempRight--;
-		}
-	}
-	if (left < tempRight) {
-		quickSort(array, left, tempRight);
-	}
-	if (tempLeft < right) {
-		quickSort(array, tempLeft, right);
 	}
 }
 
@@ -39,12 +45,12 @@ int main(int argc, char *argv[]) {
 
 	printf("This is quicksort\n");
 	int i;
-	int myArray[] = {3,4,9,6,2,5,7};
+	int myArray[] = {3,4,13,0,9,3,4,6,2,5,11,7,1,20,14};
 	for (i = 0; i<(sizeof(myArray)/sizeof(int));i++) {
 		printf("%i ", myArray[i]);
 	}
 	printf("\n");
-	quickSort(myArray, 0, 6);
+	quicksort(myArray, (sizeof(myArray)/sizeof(int)));
 
 	// while (pivot != sizeof(myArray)/sizeof(int)) {}
 	for (i = 0; i<(sizeof(myArray)/sizeof(int));i++) {
@@ -53,4 +59,3 @@ int main(int argc, char *argv[]) {
 	printf("\n");
 	return 0;
 }
-
