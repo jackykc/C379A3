@@ -113,6 +113,9 @@ void process () {
 
 
 	heapSort(5);
+
+	printf("Here %d %d %d %d %d \n",
+	 get(0), get(1), get(2), get(3), get(4));
 /*		
 	printf("Here %d %d %d %d %d %d %d %d %d %d\n",
 	 get(0), get(1), get(2), get(3), get(4),

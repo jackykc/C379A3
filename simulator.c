@@ -174,7 +174,7 @@ int get (unsigned int address) {
 void done() {
 
 	printf("Count : %d\n", reference_count);
-	print_list(memory_references);
+	//print_list(memory_references);
 
 	ll_free(memory_references);
 	int i = 0;
