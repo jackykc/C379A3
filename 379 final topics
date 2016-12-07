@@ -1,0 +1,52 @@
+- some synchronization toy problem, implement in either monitors or semaphores
+
+- mutual exclusion examples (that fail most of the time)
+
+- test and set as building blocks for semaphore/locks
+
+- interrupt usage for mutual exclusion
+
+- fork (tracing examples)
+
+- CPU scheduling (draw little box diagrams -> a segmented rectangle?)
+
+- memory layout of processes in the vein of ELF
+
+- virtual memory LRU/FCFS (heres a trace of references, what do i have in the beginning? what do I have in the end?)
+
+- count page faults (usually involves worst case) (page boundary? if multi-byte)
+can be piece of code
+
+- file systems 
+	on-disk representation
+	(a file has that many bytes, how many blocks does it require etc)
+
+- file system (unix specific)
+	inode
+	links
+
+- deadlock 
+	safe/unsafe ?
+	detection
+
+- what is a system call? why, how is it invoked, arguments, blocks?
+
+- disk scheduling
+	SSJF
+	Elevator
+	C-seek
+
+- virtual machine
+	special instructions
+	memory management (shadow tables)
+
+- TLB
+	mechanism
+	trace to see whats happening
+	CACHE
+
+- queue
+	bottlenecks
+	stability condition
+	(do not need to memorize formulas)
+	response time

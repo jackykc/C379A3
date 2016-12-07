@@ -165,8 +165,8 @@ void done() {
 			// reset pageSet 
 			ll_free(pageSet);
 			pageSet = NULL;
-			
-			// reset working_set_size of current window
+		
+				// reset working_set_size of current window
 			current_count = 0;
 			
 		}
