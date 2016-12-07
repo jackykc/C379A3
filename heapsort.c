@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "simulator.h"
-//https://en.wikipedia.org/wiki/Heapsort
+
 void swap(int indexA, int indexB);
 void heapSort(int count);
 void heapify(int count);
@@ -92,36 +92,14 @@ void process () {
 	// initialize simulator
 	init(page_size, window_size);
 
-/*
-	put(0, 9);
-	put(1, 8);
-	put(2, 6);
-	put(3, 7);
-	put(4, 5);
-	put(5, 4);
-	put(6, 2);
-	put(7, 3);
-	put(8, 1);
-	put(9, 1);
-*/	
-	// sort
+	// create sorting problem
 	int i = 0;
 	for(i = 0; i < 10000; ++i) {
 		put(i, lrand48());
 		++key_count;
 	}
 
-
 	heapSort(10000);
-
-/*		
-	printf("Here %d %d %d %d %d %d %d %d %d %d\n",
-	 get(0), get(1), get(2), get(3), get(4),
-	  get(5), get(6), get(7), get(8), get(9));
-*/
-
-
-	
 	
 	done();
 
@@ -130,7 +108,6 @@ void process () {
 int main(int argc, char *argv[]) {
 
 
-	//int page_size, window_size;
 	if(argc > 2) {
 		page_size = atoi(argv[1]);
 		window_size = atoi(argv[2]);
@@ -140,24 +117,6 @@ int main(int argc, char *argv[]) {
 	}
 	
 	process();
-	/*---------------------------------------------------------------------------------*/
-	
-	/*
-	int j = 0;
-
-	for(j = 0; j < SIZE; ++j) {
-		put(j, lrand48());			
-	}
-
-	*/
-
-	
-	
-
-
-	
-
-	
 
 	return 0;
 }

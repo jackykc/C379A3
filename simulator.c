@@ -1,56 +1,21 @@
 
 #include "simulator.h"
 
-// gets the last n bits from b
-#define LAST(b,n) ( (b) & ((1 << (n)) -1) )
-#define FIRST(b,n) LAST( ((b) >> (32-n)), n)
-// gets the first n bits from b
-// first right shifts so only first n bits are at the most
-// right hand side
-// the calls last
-
-
-
-// each node of the linked list represents the page
-// every hash value has a linked list
-// each node has key, address, and next pointer
-// say 3 pages hashed to same hash value.
-// use key in linked list to determine which specific key is the right one
-
-// every address we get is a combination of a page number and an offset
-// we can know what pages we accessed from this
-// the working set size is the number of pages we used for a while
-// working set size = # of pages we have been referencing
-// how do we determine the length of time to determine what we have been working on
-// window size
-
-// address  is the beginning of the page number. 
-// go into has table, find the key and offset 4(size of int)*wordsize
-
-// so allocate memory for page zero in our has table
-// 
-
-// when using put, actually write to the physical address
-
-// each time we put something, the address itself is increased by 1
-
-
-
 // makes a new node
 llist* ll_new(int key, double data) {
 	llist* new = malloc(sizeof(llist));
 	new->key = key;
 	new->data=data;
 	new->next=NULL;
-	new->previous=NULL; // do we need doubly linked?
+	new->previous=NULL; 
 	return new;
 }
 
-/*Insert at the beginning*/
+// Insert at the beginning
 llist* ll_insert(llist* head, llist* new) {
 	new->next=head;
 	if(head != NULL)
-		head->previous=new; // for doubly linked only
+		head->previous=new; 
 	
 	head=new;
 	return head;
@@ -69,7 +34,7 @@ llist *ll_delete(llist* head, llist* item) {
 	return head;
 }
 
-/*Search for an item, using the key*/
+// Search for an item, using the key
 llist* ll_search(llist* head, int key) {
 	for(;head!=NULL; head=head->next){
 		if(head->key==key)
@@ -78,6 +43,7 @@ llist* ll_search(llist* head, int key) {
 	return NULL;
 }
 
+// free the linked list
 void ll_free(llist* head) {
 	llist* current = head;
 	llist* last = current;
@@ -89,20 +55,24 @@ void ll_free(llist* head) {
 	free(last);
 }
 
+// insert into hash table (given a linked list node)
 void ht_insert(llist** table, int size, llist* item) {
-	int key = item->key; // key of the item we want to look for
+	int key = item->key; 
 	table[key % size] = ll_insert(table[key%size], item);
 }
 
+// delete an item in the hash table (given a linked list node)
 void ht_delete(llist** table, int size, llist* item) {
 	int key = item->key;
 	table[key % size] = ll_delete(table[key%size], item);	
 }
 
+// given a key, check if the item exists in the linked list
 llist* ht_search(llist** table, int size, int key){
 	return ll_search(table[key%size],key);
 }
 
+// print out the linked list, used for checking
 void print_list(llist* head) {
 	llist* current = head;
 	int count = 0;
@@ -114,16 +84,19 @@ void print_list(llist* head) {
 
 }
 
+// initialize the simulator
 void init (int psize, int winsize) {
-	// maybe the table should be a bit bigger?
+
 	table = malloc(SIZE*sizeof(llist*));
 	// set table to all zeros
 	memset(table, 0, SIZE*sizeof(llist*));
 
+	// global variables
 	reference_count = 0;
 	memory_references = NULL;
 	key_count = 0;
 }
+
 
 void put (unsigned int address, int value) {
 	
@@ -133,7 +106,7 @@ void put (unsigned int address, int value) {
 	
 	ht_insert(table, SIZE, node);
 
-	// for our output
+	// list of memory references made
 	llist* mem_node = ll_new(node->key, node->data);
 	memory_references = ll_insert(memory_references, mem_node);
 
@@ -144,116 +117,108 @@ int get (unsigned int address) {
 
 	++reference_count;
 
-	// SIZE + 1 ??? =
 	llist* node = ht_search(table, SIZE, address);
 
-	// for our output
 	llist* mem_node = ll_new(node->key, node->data);
 	memory_references = ll_insert(memory_references, mem_node);
 
-	// do we still call it a memory reference if we cannot find it?
-	
-	//DO WE NEED TO DO THE CHECKS?
-	//DO WE NEED TO DO THE CHECKS?
-	//DO WE NEED TO DO THE CHECKS?
-	//if (node != NULL) {
-
-		//memory_references = ll_insert(memory_references, node);
-		//return node->data;
-	//}
-	
-
-	/* else { // cannot find it
-		return NULL;
-	}
-	*/
 	return node->data;
 
 }
 
+// print the output
 void done() {
 
-	//print_list(memory_references);
 	llist* current = memory_references;
-	int count = 0; // used to get which window we are on
+	// count of the current memory reference we are on
+	int count = 0; 
+	// used to check if we went to a new window
 	int previous_window = 0;
 	int current_window = 0;
 	
-
+	// check if we have visited a page before
 	llist* pageSet = NULL;
 
+	// what page are we currently on?
 	int page = 0;
-	int working_set_size = 0; 
-	int current_count = 0; // working set size of a window
+	// total working set size of the program
+	int working_set_size = 0;
+	 // working set size of a window
+	 int current_count = 0;
 	
+	// for our current window
 	int window_count = reference_count / window_size;
-
 	if(reference_count % window_size != 0) {
 		++window_count;
 	}
 
 
-
+	// run until we reached the end of our memory references
 	while (current != NULL) {
 		current_window = count/window_size;
-		//printf("Current window %d\n", current_window);
+		// we are at a new window
 		if(current_window != previous_window) {
-			//printf("Working set for window %d -> %d\n" , previous_window, current_count);
+
+			printf("Working set size of winodw %d is %d\n", previous_window, current_count);
+			
 			previous_window = current_window;
-			// reset pageSet
+			// reset pageSet 
 			ll_free(pageSet);
 			pageSet = NULL;
-			// print working set size
-			//printf("Working set size of this winodw %d\n", current_count);
+			
 			// reset working_set_size of current window
 			current_count = 0;
 			
 		}
-		//printf("This is node %d, with key %d and value %f\n", count, current->key, current->data);
-		page = current->key / page_size;
-		//printf("Check key %d, page %d\n", current->key, page);
-		//print_list(pageSet);
 
+		// get current page
+		page = current->key / page_size;
+		
+		// check if we have already access the page in this current window
 		llist* nodeExist = ll_search(pageSet, current->key / page_size);
+		
+		// it already exist
 		if(nodeExist != NULL) {
-			// it already exist
-		} else { // only if its a new page in that window
-			// add into pageSet (unique array)
+		} else { 
 			llist* pageNode = ll_new(page, 0);
 			pageSet = ll_insert(pageSet, pageNode);
-			//printf("true\n");
-			//print_list(pageSet);
+		
+			// increase our working set size count
 			++current_count;
 			++working_set_size;
 
 		}
 
+		// get next memory reference
 		current = current->next;
+		// increment count of memory reference
 		++count;
 
 
 	}
 
-	// PRINT OUT LAST WINDOW
-	ll_free(pageSet);
-	pageSet = NULL;
-	// print working set size
-	//printf("Working set size of this winodw %d\n", current_count);
 	
-
-	// printf("Count : %d\n", reference_count);
+	// print out last window
+	printf("Working set size of winodw %d is %d\n", current_window, current_count);
+	
+	// printf("Count of memory references: %d\n", reference_count);
 	// printf("Window count %d\n", window_count);
 	// printf("Working set size %d\n", working_set_size);
 	
 	float average = (float)working_set_size / (float)window_count;
-	//printf("Average working set size %f\n", average);
+	printf("Average working set size %f\n", average);
 	
-	printf("%f, %d : %d\n", average, page_size, window_size);
+	//printf("%f, %d : %d\n", average, page_size, window_size);
 
+	// free all memory references
 	ll_free(memory_references);
+	
+	// free the linked list used to check duplicate page accesses
+	ll_free(pageSet);
+	pageSet = NULL;
+	
+	// free the hash table
 	int i = 0;
-
-
 	for(i = 0; i < SIZE; ++i) {
 		if(table[i]) {
 			ll_free(table[i]);

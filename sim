@@ -24,7 +24,7 @@ if [ "$process" ]; then
 		exit
 	fi
 
-# not enought arguments
+# not enought arguments 
 else
 	echo "3 arguments needed"
 	exit

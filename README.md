@@ -8,8 +8,10 @@ and process is the name of the process)
 
 
 chmod u+x sim.sh
-./sim.sh page_size window_size process
+./sim page_size window_size process
 
 
 Example usage:
-./sim.sh 128 100000 quicksort
+./sim 128 100000 quicksort
+
+Reference for heapsort //https://en.wikipedia.org/wiki/Heapsort
