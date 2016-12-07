@@ -15,6 +15,8 @@ page_array=( 64 128 256 512 )
 window_array=( 128 256 512 1024 2048 4096 8192 16384 )
 
 # for loop for marine/tank numbers
+touch ${process}
+
 for i in "${page_array[@]}"
 do
   echo -e "\nWe are at using PAGE SIZE of: $i"
@@ -28,7 +30,7 @@ do
     #read -n1 -p  "Press the spacebar to continue running script" key  
     #if [ "$key" = '' ]; then echo "Continuing"; else exit; fi
     
-    ./$process ${i} ${j} >> ${process}_${i}_${j}_remove.txt
+    ./$process ${i} ${j} >> ${process}.txt
     #./xRun.sh 100 ./$process ${i} ${j}
 
     # while true
@@ -46,23 +48,24 @@ do
 # end of page size for loop
 done
 
-# grep to viable file
-for i in "${page_array[@]}"
-do
-  # for loop for red pol
-  for j in "${window_array[@]}"
-  do
-    
-    echo "${process} " > ${process}_${i}_${j}_out.txt
-    grep -c "game over: RED wins" ${process}_${i}_${j}_remove.txt >> ${process}_${i}_${j}_out.txt
-      
-  # end of window size loop
-  done
-# end of page size for loop
-done
 
-rm *remove.txt
-rm *out*
+# # grep to viable file
+# for i in "${page_array[@]}"
+# do
+#   # for loop for red pol
+#   for j in "${window_array[@]}"
+#   do
+    
+#     echo "${process} " > ${process}_${i}_${j}_out.txt
+#     grep -c "game over: RED wins" ${process}_${i}_${j}_remove.txt >> ${process}_${i}_${j}_out.txt
+      
+#   # end of window size loop
+#   done
+# # end of page size for loop
+# done
+
+# rm *remove.txt
+# rm *out*
 
 
 # while :

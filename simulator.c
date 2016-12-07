@@ -173,8 +173,82 @@ int get (unsigned int address) {
 
 void done() {
 
-	printf("Count : %d\n", reference_count);
 	//print_list(memory_references);
+	llist* current = memory_references;
+	int count = 0; // used to get which window we are on
+	int previous_window = 0;
+	int current_window = 0;
+	
+
+	llist* pageSet = NULL;
+
+	int page = 0;
+	int working_set_size = 0; 
+	int current_count = 0; // working set size of a window
+	
+	int window_count = reference_count / window_size;
+
+	if(reference_count % window_size != 0) {
+		++window_count;
+	}
+
+
+
+	while (current != NULL) {
+		current_window = count/window_size;
+		//printf("Current window %d\n", current_window);
+		if(current_window != previous_window) {
+			//printf("Working set for window %d -> %d\n" , previous_window, current_count);
+			previous_window = current_window;
+			// reset pageSet
+			ll_free(pageSet);
+			pageSet = NULL;
+			// print working set size
+			//printf("Working set size of this winodw %d\n", current_count);
+			// reset working_set_size of current window
+			current_count = 0;
+			
+		}
+		//printf("This is node %d, with key %d and value %f\n", count, current->key, current->data);
+		page = current->key / page_size;
+		//printf("Check key %d, page %d\n", current->key, page);
+		//print_list(pageSet);
+
+		llist* nodeExist = ll_search(pageSet, current->key / page_size);
+		if(nodeExist != NULL) {
+			// it already exist
+		} else { // only if its a new page in that window
+			// add into pageSet (unique array)
+			llist* pageNode = ll_new(page, 0);
+			pageSet = ll_insert(pageSet, pageNode);
+			//printf("true\n");
+			//print_list(pageSet);
+			++current_count;
+			++working_set_size;
+
+		}
+
+		current = current->next;
+		++count;
+
+
+	}
+
+	// PRINT OUT LAST WINDOW
+	ll_free(pageSet);
+	pageSet = NULL;
+	// print working set size
+	//printf("Working set size of this winodw %d\n", current_count);
+	
+
+	// printf("Count : %d\n", reference_count);
+	// printf("Window count %d\n", window_count);
+	// printf("Working set size %d\n", working_set_size);
+	
+	float average = (float)working_set_size / (float)window_count;
+	//printf("Average working set size %f\n", average);
+	
+	printf("%f, %d : %d\n", average, page_size, window_size);
 
 	ll_free(memory_references);
 	int i = 0;
@@ -189,6 +263,4 @@ void done() {
 	free(table);
 
 }
-
-
 

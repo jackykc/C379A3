@@ -106,16 +106,14 @@ void process () {
 */	
 	// sort
 	int i = 0;
-	for(i = 0; i < 5; ++i) {
+	for(i = 0; i < 10000; ++i) {
 		put(i, lrand48());
 		++key_count;
 	}
 
 
-	heapSort(5);
+	heapSort(10000);
 
-	printf("Here %d %d %d %d %d \n",
-	 get(0), get(1), get(2), get(3), get(4));
 /*		
 	printf("Here %d %d %d %d %d %d %d %d %d %d\n",
 	 get(0), get(1), get(2), get(3), get(4),

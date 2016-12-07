@@ -62,19 +62,14 @@ void process () {
 	/////////////////////////////
 	
 	int i;
-
-	printf("This is quicksort\n");
 	
-	for (i = 0; i<SIZE; i++) {
+	for (i = 0; i<10000; i++) {
 		put(i, lrand48()/10000000);
-		printf("%i ", get(i));
 	}
 
-	printf("\n");
+	
+	quicksort(10000);
 
-	quicksort(SIZE);
-
-	printf("\n");
 	
 	for (i = 0; i<SIZE; i++) {
 	//	printf("%i ", get(i));
