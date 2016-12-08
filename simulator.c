@@ -91,13 +91,13 @@ void init (int psize, int winsize) {
 	// set table to all zeros
 	memset(table, 0, SIZE*sizeof(llist*));
 
-	// global variables
+	// initialize global variables
 	reference_count = 0;
 	memory_references = NULL;
-	key_count = 0;
+	
 }
 
-
+// store a value in memory at indicated address
 void put (unsigned int address, int value) {
 	
 	++reference_count;
@@ -106,19 +106,20 @@ void put (unsigned int address, int value) {
 	
 	ht_insert(table, SIZE, node);
 
-	// list of memory references made
+	// add to memory reference list
 	llist* mem_node = ll_new(node->key, node->data);
 	memory_references = ll_insert(memory_references, mem_node);
 
 }
 
-// where address is address of our linked list
+// get contents at indicated address
 int get (unsigned int address) {
 
 	++reference_count;
 
 	llist* node = ht_search(table, SIZE, address);
 
+	// add to memory reference list
 	llist* mem_node = ll_new(node->key, node->data);
 	memory_references = ll_insert(memory_references, mem_node);
 
@@ -201,9 +202,9 @@ void done() {
 	// print out last window
 	printf("Working set size of winodw %d is %d\n", current_window, current_count);
 	
-	// printf("Count of memory references: %d\n", reference_count);
-	// printf("Window count %d\n", window_count);
-	// printf("Working set size %d\n", working_set_size);
+	printf("\nCount of memory references: %d\n", reference_count);
+	printf("Window count %d\n", window_count);
+	printf("Working set size %d\n", working_set_size);
 	
 	float average = (float)working_set_size / (float)window_count;
 	printf("Average working set size %f\n", average);

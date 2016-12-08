@@ -2,6 +2,9 @@
 #include <string.h>
 #include <math.h>
 #include "simulator.h"
+
+#define PROBLEM_SIZE 10000
+
 // Quicksort function.
 // followed the code here: http://alienryderflex.com/quicksort/
 
@@ -56,34 +59,26 @@ void quicksort(int lenArr) {
 
 void process () {
 
-
-	/////////////////////////////
+	// initialize simulator
 	init(page_size, window_size);
-	/////////////////////////////
 	
+	// create sorting problem
 	int i;
-	
-	for (i = 0; i<10000; i++) {
-		put(i, lrand48()/10000000);
+	for (i = 0; i<PROBLEM_SIZE; i++) {
+		put(i, lrand48());
 	}
-
 	
-	quicksort(10000);
+	// sort
+	quicksort(PROBLEM_SIZE);
 
-	
-	for (i = 0; i<SIZE; i++) {
-	//	printf("%i ", get(i));
-	}
-	/////////////////////////////
+	// print result, free memory
 	done();
-	/////////////////////////////
 	
 
 }
 
 int main(int argc, char *argv[]) {
 
-	//int page_size, window_size;
 	if(argc > 2) {
 		page_size = atoi(argv[1]);
 		window_size = atoi(argv[2]);

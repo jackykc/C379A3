@@ -4,6 +4,12 @@
 
 #include "simulator.h"
 
+#define PROBLEM_SIZE 10000
+
+//heapsort function
+// based off of https://en.wikipedia.org/wiki/Heapsort
+
+
 void swap(int indexA, int indexB);
 void heapSort(int count);
 void heapify(int count);
@@ -49,6 +55,8 @@ void heapify(int count) {
 
 }
 
+// used to implement heapify
+// (from wiki) repair heap whose root element is at index 'start'
 void siftDown(int start, int end) {
 	
 	int child;
@@ -78,7 +86,7 @@ void siftDown(int start, int end) {
 			root = swap;	
 
 		}
-		// update leftchild
+		
 		leftChild = 2*root+1;
 
 	}
@@ -94,13 +102,14 @@ void process () {
 
 	// create sorting problem
 	int i = 0;
-	for(i = 0; i < 10000; ++i) {
+	for(i = 0; i < PROBLEM_SIZE; ++i) {
 		put(i, lrand48());
-		++key_count;
 	}
 
-	heapSort(10000);
+	// sort
+	heapSort(PROBLEM_SIZE);
 	
+	// print out results, free memory
 	done();
 
 }

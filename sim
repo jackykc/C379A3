@@ -1,12 +1,8 @@
 #!/bin/bash
 
-
 page_size=$1
 window_size=$2
 process=$3
-
-# stackoverflow 'how do i test if a variable is a number in bash'
-
 
 # check if we have 3 arguments, also we should check if the third argument is valid as well
 if [ "$process" ]; then
@@ -36,8 +32,4 @@ fi
 make clean
 make $process
 
-./$process
-# runs the simulator which takes in the process name as the argument
-# is this what we want?
-
-#./simulator $process
+./$process $page_size $window_size
